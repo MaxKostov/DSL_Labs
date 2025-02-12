@@ -1,7 +1,7 @@
 # Lab Report: Intro to Formal Languages and Finite Automata
 
 ### Course: Formal Languages & Finite Automata
-### Author: Maksim Costov
+### Author: Maxim Costov
 
 ---
 
