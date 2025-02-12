@@ -22,8 +22,12 @@ public class Main {
 
 
         Grammar grammar = new Grammar(VN, VT, startVariable, hashMap);
-        System.out.println(grammar.generteString());
+        System.out.println("Random generated string: " + grammar.generteString());
+
         FiniteAutomaton fa = grammar.toFiniteAutomaton();
+
+        System.out.println(" ");
+        System.out.println("Finite automaton: ");
         System.out.println(fa);
         System.out.println(fa.stringBelongToLanguage("asfdsfsdf"));
         System.out.println(fa.stringBelongToLanguage(grammar.generteString()));
