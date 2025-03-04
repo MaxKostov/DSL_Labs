@@ -44,10 +44,34 @@ This lab focuses on understanding formal languages, regular grammars, and finite
 
 ---
 
+## Theoretical Background on Finite Automaton
+
+A finite automaton is a mathematical model of computation used to represent and recognize regular languages. It consists of a finite set of states, a finite set of input symbols (alphabet), transitions between states based on input symbols, an initial state, and a set of accepting (final) states.
+
+There are two main types of finite automata:
+
+1. **Deterministic Finite Automaton (DFA)**: For each state and input symbol, there is exactly one transition to a next state.
+2. **Non-deterministic Finite Automaton (NFA)**: For a given state and input symbol, there can be multiple possible next states.
+
+Key components of a finite automaton:
+
+- **Q**: Finite set of states.
+- **Σ**: Finite set of input symbols (alphabet).
+- **δ**: Transition function \( \delta: Q \times \Sigma \rightarrow Q \), describing state transitions based on input symbols.
+- **q0**: Initial state (\( q_0 \in Q \)).
+- **F**: Set of accepting (final) states (\( F \subseteq Q \)).
+
+A string is accepted by a finite automaton if there is a sequence of transitions from the initial state to an accepting state after processing all input symbols.
+
+Finite automata are fundamental in the study of formal languages, as they correspond precisely to regular languages. Regular grammars can be transformed into finite automata and vice versa, which is a key concept in the theory of computation.
+
+---
+
 ## Implementation
 
 ### 1. Grammar Class
 Implemented a class `Grammar` with methods to generate valid strings and convert the grammar to a finite automaton.
+
 #### Here is my `generateString` method:
 ```java
 public String generateString() {
@@ -69,7 +93,7 @@ public String generateString() {
 }
 ```
 
-#### With this method I convert a regular grammar class into finite automaton class:
+#### With this method, I convert a regular grammar class into a finite automaton class:
 ```java
 public FiniteAutomaton toFiniteAutomaton() {
     List<String> sigma = new ArrayList<>(VT);
@@ -85,12 +109,10 @@ public FiniteAutomaton toFiniteAutomaton() {
             if (value.length() == 2) {
                 HashMap<String, String> transitionKey = new HashMap<>();
                 transitionKey.put(key, String.valueOf(value.charAt(0)));
-
                 delta.put(transitionKey, String.valueOf(value.charAt(1)));
             } else if (value.length() == 1) {
                 HashMap<String, String> transitionKey = new HashMap<>();
                 transitionKey.put(key, value);
-
                 delta.put(transitionKey, finalState);
             }
         }
@@ -100,8 +122,7 @@ public FiniteAutomaton toFiniteAutomaton() {
 ```
 
 ### 2. Finite Automaton Class
-#### In this class the only method is `stringBelongToLanguag` where we can check if the string can represent a finite automaton according to our rules:
-
+#### Checking if a string belongs to the language:
 ```java
 public boolean stringBelongToLanguage(final String inputString) {
     String currentState = q0;
@@ -120,63 +141,51 @@ public boolean stringBelongToLanguage(final String inputString) {
 
 ### 3. Main Class
 Demonstrated the functionality by generating strings and verifying them.
-
 ```java
-public static void main(String[] args) {
-    List<String> VN = Arrays.asList(new String[]{"S", "B", "D"});
+ public static void main(String[] args) {
+        List<String> VN = Arrays.asList(new String[]{"S", "B", "D"});
 
-    List<String> VT = Arrays.asList(new String[]{"a", "b", "c"});
+        List<String> VT = Arrays.asList(new String[]{"a", "b", "c"});
 
-    String startVariable = "S";
+        String startVariable = "S";
 
-    HashMap<String, List<String>> hashMap = new HashMap<>();
-    hashMap.put("S", Arrays.asList("aB", "bB"));
-    hashMap.put("B", Arrays.asList("bD", "cB", "aS"));
-    hashMap.put("D", Arrays.asList("b", "aD"));
+        HashMap<String, List<String>> hashMap = new HashMap<>();
+        hashMap.put("S", Arrays.asList("aB", "bB"));
+        hashMap.put("B", Arrays.asList("bD", "cB", "aS"));
+        hashMap.put("D", Arrays.asList("b", "aD"));
 
 
-    Grammar grammar = new Grammar(VN, VT, startVariable, hashMap);
-    System.out.println(grammar.generteString());
-    FiniteAutomaton fa = grammar.toFiniteAutomaton();
-    System.out.println(fa);
-    System.out.println(fa.stringBelongToLanguage("asfdsfsdf"));
-    System.out.println(fa.stringBelongToLanguage(grammar.generteString()));
-}
+        Grammar grammar = new Grammar(VN, VT, startVariable, hashMap);
+        System.out.println("Random generated string: " + grammar.generteString());
+
+        FiniteAutomaton fa = grammar.toFiniteAutomaton();
+
+        System.out.println(" ");
+        System.out.println("Finite automaton: ");
+        System.out.println(fa);
+        System.out.println(fa.stringBelongToLanguage("asfdsfsdf"));
+        System.out.println(fa.stringBelongToLanguage(grammar.generteString()));
+    }
 ```
 
 ### Output:
 ![img.png](images/img.png)
 
 ### Unittests:
-#### I also created some unit tests to check if my program works properly. You can check the code in `test` folder.
-### Test results:
+#### Test results:
 ![img.png](images/img1.png)
+
 ---
 
 ## Results
 
-1. **Generated Strings:**
-    - Example output of 5 valid strings generated by the grammar:
-        - `abb`
-        - `acbab`
-        - `bcbabb`
-        - `ababb`
-        - `bacbabb`
-
-2. **Finite Automaton Validation:**
-    - Tested string `abb` belongs to the language: **True**
-    - Tested string `abc`: **False** (not following valid transitions)
+The implementation successfully generated valid strings based on the defined grammar and verified string membership using the finite automaton. Example output of 5 valid strings includes `abb`, `acbab`, `bcbabb`, `ababb`, and `bacbabb`. Verification of string membership using the finite automaton showed that valid strings like `abb` were accepted, while invalid strings like `abc` were rejected.
 
 ---
 
 ## Conclusion
-In this lab, I successfully:
-- Understood the structure and components of formal languages.
-- Implemented a grammar based on the provided variant.
-- Generated valid strings and converted the grammar to a finite automaton.
-- Verified string membership in the language using the finite automaton.
 
-This lab provided practical experience with formal grammars and finite automata, reinforcing theoretical concepts with hands-on coding tasks.
+This lab was a valuable experience in understanding and applying the fundamental concepts of formal languages and finite automata. Through the implementation of a grammar and its conversion into a finite automaton, I gained practical insights into how formal grammars can define languages and how finite automata can be used to verify string membership. This hands-on approach solidified my understanding of the relationship between grammars and automata and their significance in the theory of computation.
 
 ---
 
@@ -187,6 +196,4 @@ This lab provided practical experience with formal grammars and finite automata,
 
 ## References
 1. Java Documentation: [https://docs.oracle.com/javase/](https://docs.oracle.com/javase/)
-
----
 
