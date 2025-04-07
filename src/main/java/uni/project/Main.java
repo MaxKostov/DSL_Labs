@@ -50,7 +50,8 @@ public class Main {
         Grammar grammar1 = fa1.convertToGrammar();
         System.out.println(" ");
         System.out.println(grammar1.toString());
-        fa1.visualizeInWindow();
+        System.out.println(grammar1.determineGrammarType());
+        //fa1.visualizeInWindow();
 
         List<String> Q = List.of("q0", "q1", "q2");
         List<String> Sigma = List.of("a", "b");
@@ -64,10 +65,15 @@ public class Main {
         delta.put(new HashMap<>(Map.of("q1", "b")), List.of("q0", "q2"));
         delta.put(new HashMap<>(Map.of("q2", "a")), List.of("q2"));
 
+
+        System.out.println(" ");
         FiniteAutomaton ndfa = new FiniteAutomaton(Q, Sigma, delta, q0, F);
         System.out.println(ndfa.isDeterministic());
         System.out.println(ndfa.toString());
+        ndfa.visualizeInWindow();
         FiniteAutomaton dfa = ndfa.convertToDFA();
+        System.out.println(dfa.toString());
         System.out.println(dfa.isDeterministic());
+        dfa.visualizeInWindow();
     }
 }
