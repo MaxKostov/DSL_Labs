@@ -1,4 +1,4 @@
-package uni.project.lab4;
+package uni.project.regexGen;
 
 import java.util.ArrayList;
 import java.util.List;

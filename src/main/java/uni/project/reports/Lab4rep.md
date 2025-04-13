@@ -32,6 +32,11 @@ Regular expressions (regex) are powerful tools for pattern matching and text man
 
 ## Implementation
 
+### Variant 3:
+- J*K(L|M|N)*O?(P|Q)^3
+- A*B(C|D|E)F(G|H|i)^2
+- O(P|Q|R)*2(3|4)
+
 ### 1. **Regex Components Handled**
 The implemented `RegexGenerator` class supports the following regex constructs:
 

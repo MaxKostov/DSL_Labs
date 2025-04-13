@@ -1,4 +1,4 @@
-package uni.project.lab1;
+package uni.project.grammarAndFA;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

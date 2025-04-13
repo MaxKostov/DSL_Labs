@@ -1,4 +1,4 @@
-package uni.project.lab1;
+package uni.project.grammarAndFA;
 
 import java.util.ArrayList;
 import java.util.HashMap;
